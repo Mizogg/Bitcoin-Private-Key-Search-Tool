@@ -1,0 +1,8 @@
+# Core dependencies
+bloomfilter>=1.0.0  # For efficient address checking
+bitarray>=1.9.2
+# GUI dependencies
+tkinter  # Usually comes with Python installation
+
+# Optional but recommended
+tqdm>=4.65.0  # For progress bars in console mode 
