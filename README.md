@@ -162,6 +162,10 @@ python main.py --random --both --cpu 8
 
 © 2025 Mizogg. All rights reserved.
 
-## Support
+## Credits
+Made by Team Mizogg
+© mizogg.com 2018 - 2025
 
-For issues, feature requests, or questions, please open an issue on the GitHub repository. 
+## Support
+Join our Telegram group for support and updates:
+https://t.me/TeamHunter_GUI
