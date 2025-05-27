@@ -264,18 +264,67 @@ class MainWindow:
         # Apply to all existing widgets
         for widget in self.root.winfo_children():
             if isinstance(widget, tk.Text):
-                widget.configure(bg=colors['bg'], fg=colors['text'])
+                # For text widgets, use a slightly lighter background for better contrast
+                bg_color = colors['bg']
+                if bg_color.startswith('#'):
+                    # Convert hex to RGB
+                    r = int(bg_color[1:3], 16)
+                    g = int(bg_color[3:5], 16)
+                    b = int(bg_color[5:7], 16)
+                    # Make background slightly lighter
+                    r = min(255, r + 20)
+                    g = min(255, g + 20)
+                    b = min(255, b + 20)
+                    bg_color = f'#{r:02x}{g:02x}{b:02x}'
+                widget.configure(
+                    bg=bg_color,
+                    fg=colors['text'],
+                    insertbackground=colors['text'],  # Cursor color
+                    selectbackground=colors['button'],  # Selection background
+                    selectforeground=colors['text']  # Selection text color
+                )
             elif isinstance(widget, ttk.Notebook):
                 for tab in widget.winfo_children():
                     if isinstance(tab, tk.Text):
-                        tab.configure(bg=colors['bg'], fg=colors['text'])
+                        # Apply same text widget styling to notebook tabs
+                        bg_color = colors['bg']
+                        if bg_color.startswith('#'):
+                            r = int(bg_color[1:3], 16)
+                            g = int(bg_color[3:5], 16)
+                            b = int(bg_color[5:7], 16)
+                            r = min(255, r + 20)
+                            g = min(255, g + 20)
+                            b = min(255, b + 20)
+                            bg_color = f'#{r:02x}{g:02x}{b:02x}'
+                        tab.configure(
+                            bg=bg_color,
+                            fg=colors['text'],
+                            insertbackground=colors['text'],
+                            selectbackground=colors['button'],
+                            selectforeground=colors['text']
+                        )
                     elif isinstance(tab, ttk.Frame):
                         # Recursively apply theme to all widgets in frames
                         self._apply_theme_to_widgets(tab, colors)
         
         # Update preview if it exists
         if hasattr(self, 'preview_text'):
-            self.preview_text.configure(bg=colors['bg'], fg=colors['text'])
+            bg_color = colors['bg']
+            if bg_color.startswith('#'):
+                r = int(bg_color[1:3], 16)
+                g = int(bg_color[3:5], 16)
+                b = int(bg_color[5:7], 16)
+                r = min(255, r + 20)
+                g = min(255, g + 20)
+                b = min(255, b + 20)
+                bg_color = f'#{r:02x}{g:02x}{b:02x}'
+            self.preview_text.configure(
+                bg=bg_color,
+                fg=colors['text'],
+                insertbackground=colors['text'],
+                selectbackground=colors['button'],
+                selectforeground=colors['text']
+            )
             
         # Save the current theme only if requested
         if save:
